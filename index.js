@@ -15,6 +15,15 @@ async function getUser(username) {
   }
 }
 
+async function getRepos(username) {
+  try {
+    const { data } = await axios(APIURL + username + "/repos");
+    addReposCard(data);
+  } catch (err) {
+    creatErrorCard("Problem fetching reps");
+  }
+}
+
 function creatUserCard(user) {
   const cardHtml = `<div class="card">
     <div>
