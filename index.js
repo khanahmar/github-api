@@ -8,6 +8,7 @@ async function getUser(username) {
   try {
     const { data } = await axios(APIURL + username);
     creatUserCard(data);
+    getRepos(username);
   } catch (err) {
     if (err.response.status == 404) {
       creatErrorCard("No profile with this name");
@@ -44,13 +45,17 @@ function creatUserCard(user) {
         <li class="li">${user.public_repos}<strong>Repos</strong></li>
       </ul>
       <div id="repos">
-        <a href="#" class="repo">repo1</a>
-        <a href="#" class="repo">repo2</a>
-        <a href="#" class="repo">repo3</a>
       </div>
     </div>
   </div>`;
   main.innerHTML = cardHtml;
+}
+
+function addReposToCard(repos) {
+  const reposEl = document.getElementById("repos");
+  reposEl.forEach(item => {
+    
+  });
 }
 
 form.addEventListener("submit", (e) => {
