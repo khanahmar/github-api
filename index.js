@@ -18,7 +18,7 @@ async function getUser(username) {
 
 async function getRepos(username) {
   try {
-    const { data } = await axios(APIURL + username + "/repos");
+    const { data } = await axios(APIURL + username + "/repos?sort=created");
     addReposCard(data);
   } catch (err) {
     creatErrorCard("Problem fetching reps");
@@ -51,10 +51,16 @@ function creatUserCard(user) {
   main.innerHTML = cardHtml;
 }
 
-function addReposToCard(repos) {
+function addReposCard(repos) {
   const reposEl = document.getElementById("repos");
-  reposEl.forEach(item => {
-    
+  repos.slice(0, 10).forEach((item) => {
+    const repoEl = document.createElement("a");
+    repoEl.classList.add("repo");
+    repoEl.href = item.html_url;
+    repoEl.target = "_blank";
+    repoEl.innerHTML = item.name;
+
+    reposEl.appendChild(repoEl);
   });
 }
 
